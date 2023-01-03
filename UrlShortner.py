@@ -1,34 +1,30 @@
-import tkinter as tk
-import pyshorteners as ps
-
-root=tk.Tk()
-
-
-root.geometry("600x400")
-
-
-name_var=tk.StringVar()
-def new(url):
-	root2=tk.Tk()
-	root2.geometry("300x200")
-	newurl = tk.Label(root2,text= url,font=('calibre',10, 'bold'))
-def submit():
-	name=name_var.get()
-	u = ps.Shortener().tinyurl.short(name)
-	new(u)
-	name_var.set("")
-
-	
-
-name_label = tk.Label(root, text = 'Username', font=('calibre',10, 'bold'))
-
-
-name_entry = tk.Entry(root,textvariable = name_var, font=('calibre',10,'normal'))
-
-sub_btn=tk.Button(root,text = 'Submit',command = submit)
-
-name_label.grid(row=0,column=0)
-name_entry.grid(row=0,column=1)
-sub_btn.grid(row=2,column=1)
-
+from tkinter import *
+import pyshorteners
+# Function for short URL and set value in textbox
+def convert():
+    s = pyshorteners.Shortener().tinyurl.short(url.get())
+    shorturl.set(s)
+root = Tk()
+root.title(" URL Shortner")
+root.geometry("400x350")
+root.resizable(False, False)
+root.config(background="#fff")
+# Declare variables
+url = StringVar()
+shorturl = StringVar()
+# Design labels
+Label(root, text="URL Shortner", bg="#ffffe0", fg="#E74C3C", font="verdana 22 ").place(x=80, y=10)
+Label(root, text="-------------------------------------------------", bg="#ffffe0", fg="#E74C3C"
+            , font="verdana 12 ").place(x=15, y=50)
+# Accepting URL as a Input
+Label(root, text="Enter URL Here ", bg="#2C3E50", fg="#EAECEE", font="verdana 10 bold"
+            , padx=2, pady=2).place(x=7, y=100)
+Entry(root, textvariable=url, font="verdana 12", width=30).place(x=7, y=120)
+# Creating button to give a call for convert function
+Button(root, text="Convert...", bg="#fdde6c", fg="#000", font="verdana 12 "
+        , command=convert, relief=GROOVE).place(x=7, y=180)
+# Displaying shortened URL
+Label(root, text="Shortened URL - Copy & Paste in browser", bg="#2C3E50", fg="#EAECEE"
+            , font="verdana 10 bold", padx=2, pady=2).place(x=7, y=250)
+Entry(root, textvariable=shorturl, width=35, font="verdana 12").place(x=7, y=270)
 root.mainloop()
